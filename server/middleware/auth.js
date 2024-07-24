@@ -13,6 +13,7 @@ export const auth = (req,res,next) => {
             next()
             
         })
+        console.log("auth executed successfully")
     }catch(err){
         return res.status(500).json({msg:err.message})
     }

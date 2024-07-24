@@ -4,6 +4,8 @@ import mongoose from 'mongoose'
 import dotenv from 'dotenv'
 import cookieParser from 'cookie-parser'
 import userRouter from './routes/userRouter.js'
+import categoryRoute from './routes/categoryRouter.js'
+import productRouter from './routes/productRouter.js'
 
 
 
@@ -24,7 +26,9 @@ app.listen(PORT,() => {
 })
 
 //Routes 
-app.use('/user',userRouter)
+app.use('/api/user',userRouter)
+app.use('/api',categoryRoute)
+app.use('/api',productRouter)
 
 
 
