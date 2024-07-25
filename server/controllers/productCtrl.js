@@ -1,12 +1,71 @@
 import {Product} from "../models/productModel.js"
+import {query} from "express";
 import { uploadOnCloudinary } from "../middleware/cloudinaryConfig.js"
+
+//Filter ,sorting and pagination
+
+
+    class APIfeatures {
+        constructor(query, queryString) {
+            this.query = query;
+            this.queryString = queryString;
+        }
+
+    filtering(){
+
+        // queryString is converted to object to remove the page, sort and limit
+        const queryObj={...this.queryString};
+        console.log("queryobj is "+queryObj)
+
+       const excluededFields = ['page', 'sort', 'limit'];
+       excluededFields.forEach(el => delete(queryObj[el]));
+    
+       let queryStr = JSON.stringify(queryObj);
+       
+       // to add "$" to prefix part ....
+       queryStr = queryStr.replace(/\b(gte|gt|lt|lte|regex)\b/g, match => '$' + match);
+      
+       this.query.find(JSON.parse(queryStr))
+       return this
+
+    }
+    sorting(){
+        if(this.queryString.sort){
+            const sortBy=this.queryString.sort.split(',').join('')
+            console.log(sortBy)
+            this.query=this.query.sort(sortBy)
+            
+        }
+        else{
+            this.query=this.query.sort('-createdAt')
+        }
+        return this
+
+
+    }
+    pagination(){
+        const page = this.queryString.page * 1 || 1;
+    const limit = this.queryString.limit * 1 || 9;
+    const skip = (page - 1) * limit;
+
+    this.query = this.query.skip(skip).limit(limit);
+
+    return this;
+
+    }
+}
 
 export const productCtrl={
     getProduct:async(req,res)=>{
         try{
-
-            const products=await Product.find()
-            res.json({products})
+            
+            const features=new APIfeatures(Product.find(),req.query)
+            .filtering()
+            .sorting()
+            .pagination();
+           
+            const products = await features.query;
+            res.json({status:'success',result: products.length,product:products})
              
 
         }catch(err){
