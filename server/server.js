@@ -6,11 +6,11 @@ import cookieParser from 'cookie-parser'
 import userRouter from './routes/userRouter.js'
 import categoryRoute from './routes/categoryRouter.js'
 import productRouter from './routes/productRouter.js'
-
-
+import cors from "cors"
 
 const app = express();
 dotenv.config()
+app.use(cors());
 app.use(express.json())             
 app.use(cookieParser())
 
