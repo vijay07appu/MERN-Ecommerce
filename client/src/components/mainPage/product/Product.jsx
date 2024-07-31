@@ -6,7 +6,7 @@ function Product() {
     const state=useContext(GlobalState);
     
     const [products]=state.productApi.products
-    console.log(" p is "+products)
+    
     return (
         <>
         <div className='products'>

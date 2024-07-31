@@ -4,8 +4,8 @@ import axios from 'axios'
 
 function Login() {
     const [user,setUser]=useState({
-        email:"",
-        password:""
+        email:" ",
+        password:" "
     
     })
 
@@ -19,13 +19,11 @@ function Login() {
     const loginSubmit=async(e)=>{
         e.preventDefault();
         try {
-             await axios.post('http://localhost:5000/api/user/login', {...user});
+             const res=await axios.post('http://localhost:5000/api/user/login', {...user});
              localStorage.setItem('firstLogin',true)
              window.location.href="/"
-            // Handle successful login
             console.log('Login successful');
           } catch (err) {
-            // Handle error
             alert(err.response.data.msg)
           }
     }

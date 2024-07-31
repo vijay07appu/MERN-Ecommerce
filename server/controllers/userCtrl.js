@@ -28,10 +28,12 @@ export const userCtrl = {
             //create jwt to authenticate
             const accesstoken = createAccessToken({id:newUser._id})
             const refreshtoken = createRefreshToken({id:newUser._id})
+            console.log("refreshtoken is ")
+            console.log(refreshtoken)
 
             res.cookie('refreshtoken', refreshtoken,{
                 httpOnly:true,
-                path:'/user/refresh_token'
+                path:'/api/user/refresh_token'
             })
 
             res.json({accesstoken})
@@ -45,6 +47,7 @@ export const userCtrl = {
 
         try{
             const rf_token = req.cookies.refreshtoken;
+           
 
             if(!rf_token) return res.status(400).json({msg:"Please Login or Registers"});
     
@@ -76,7 +79,7 @@ return res.status(500).json({msg:err.message})
 
             res.cookie('refreshtoken',refreshtoken,{
                 httpOnly:true,
-                path:'/user/refresh_token'
+                path:'/api/user/refresh_token'
             })
 
             res.json({accesstoken})
