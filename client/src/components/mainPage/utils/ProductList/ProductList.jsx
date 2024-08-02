@@ -1,10 +1,16 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
 
-function ProductList({product}) {
+import BtnRender from './BtnRender'
+
+function ProductList({ product, isAdmin }) {
     
+
+
     return (
         <div className="product_card">
+            {
+                isAdmin && <input type='checkbox' defaultChecked={product.checked} />
+            }
             <img src={product.images} alt="this is space of image" />
             <div className='product_box'>
                 <h2 title={product.title}>{product.title}</h2>
@@ -13,16 +19,11 @@ function ProductList({product}) {
 
             </div>
 
-            <div className="row_btn">
-                <Link id='btn_buy' to={'#!'}>
-                  Buy</Link>
-                <Link id="btn_view" to={`detail/${product._id}`}>
-                View
-                </Link>
-            </div>
+            <BtnRender product={product}/>
 
+           
         </div>
-        
+
     )
 }
 

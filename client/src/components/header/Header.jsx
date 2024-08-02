@@ -12,6 +12,7 @@ function Header() {
     const state = useContext(GlobalState)
     const [isLogged, setIsLogged] = state.userApi.isLogged
     const [isAdmin, setIsAdmin] = state.userApi.isAdmin
+    const [cart]=state.userApi.cart
 
 
     const logoutUser = async () => {
@@ -69,8 +70,8 @@ function Header() {
                 </ul>
                 {
                     isAdmin ? '' : <div className='cart-icon'>
-                        <span>0</span>
-                        <Link to='/cart'><MdOutlineShoppingCart size={30} /></Link>
+                        <span>{cart.length}</span>
+                        <Link to='/Cart'><MdOutlineShoppingCart size={30} /></Link>
                     </div>
                 }
 

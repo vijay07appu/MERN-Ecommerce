@@ -6,6 +6,7 @@ function Product() {
     const state=useContext(GlobalState);
     
     const [products]=state.productApi.products
+    const [isAdmin]=state.userApi.isAdmin
     
     return (
         <>
@@ -14,7 +15,7 @@ function Product() {
                 products.map(product=>{
                     
 
-                   return  <ProductList key={product._id} product={product}/>
+                   return  <ProductList key={product._id} product={product} isAdmin={isAdmin}/>
                     
     
                 })

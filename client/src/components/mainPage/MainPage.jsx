@@ -15,6 +15,7 @@ function MainPage() {
                 <Route path="/register" element={<Register />} />
                 <Route path="/cart" element={<Cart />} />
                 <Route path="/detail/:id" element={<DetailProduct/>}/>
+                
             </Routes>
 
         

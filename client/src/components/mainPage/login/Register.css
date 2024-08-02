@@ -1,0 +1,95 @@
+.register-body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #71b7e6, #9b59b6);
+}
+
+.container {
+    width: 100%;
+    max-width: 400px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    padding: 40px;
+    backdrop-filter: blur(10px);
+}
+
+.register-page {
+    position: relative;
+    padding: 40px;
+}
+
+.register-page h2 {
+    margin-bottom: 30px;
+    color: #fff;
+    text-align: center;
+}
+
+.input-box {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.input-box input {
+    width: 100%;
+    padding: 10px;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid #fff;
+    color: #fff;
+    font-size: 16px;
+    outline: none;
+    letter-spacing: 1px;
+}
+
+.input-box input::placeholder {
+    color: #fff;
+    opacity: 0.5;
+}
+
+
+
+
+.input-box input:focus ~ label,
+.input-box input:valid ~ label {
+    top: -5px;
+    color: #9b59b6;
+}
+
+.btn {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background: #9b59b6;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+.btn:hover {
+    background: #7158e2;
+}
+
+.login-link {
+    margin-top: 20px;
+    text-align: center;
+    color: #fff;
+}
+
+.login-link a {
+    color: #9b59b6;
+    text-decoration: none;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+}
