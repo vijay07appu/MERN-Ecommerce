@@ -29,18 +29,27 @@ function UserApi(token) {
 
     },[token]);
 
-    const addCart=(product)=>{
-        if(!isLogged) return alert("Please log in first")
-
-        const check=cart.every(item=>item.id!==product._id);
-
-        if(check){
-            setCart([...cart,{...product,quantity:1}]);
-        }
-        else{
-            alert("This product has already been added to the cart .");
-        }
-    }
+    const addCart = (product) => {
+        if (!isLogged) return alert("Please log in first");
+    
+        setCart(prevCart => {
+            // Check if the item already exists in the cart
+            const existingItemIndex = prevCart.findIndex(item => item.product._id === product._id);
+    
+            if (existingItemIndex > -1) {
+                // Item exists, increase quantity
+                const updatedCart = [...prevCart];
+                updatedCart[existingItemIndex] = {
+                    ...updatedCart[existingItemIndex],
+                    quantity: updatedCart[existingItemIndex].quantity + 1
+                };
+                return updatedCart;
+            } else {
+                // Item does not exist, add new item with quantity 1
+                return [...prevCart, { product, quantity: 1 }];
+            }
+        });
+    };
     return {
             isLogged:[isLogged,setIsLogged],
             isAdmin:[isAdmin,setIsAdmin],

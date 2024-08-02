@@ -50,16 +50,7 @@
     letter-spacing: 1px;
 }
 
-.input-box label {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    transform: translateY(-50%);
-    color: #fff;
-    font-size: 16px;
-    pointer-events: none;
-    transition: 0.5s;
-}
+
 
 
 .input-box input:focus ~ label,
