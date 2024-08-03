@@ -1,8 +1,15 @@
 import React from 'react'
+import { useContext } from 'react';
+import { useState } from 'react';
+import { GlobalState } from '../../../../GlobalState'
 
 import BtnRender from './BtnRender'
 
 function ProductList({ product, isAdmin }) {
+
+
+
+    
     
 
 

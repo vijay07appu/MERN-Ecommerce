@@ -2,29 +2,22 @@ import React, { useContext } from 'react'
 import { GlobalState } from '../../../GlobalState'
 import { Link } from 'react-router-dom'
 
+
 function Cart() {
+    const state = useContext(GlobalState);
+    const [cart, setCart] = state.cartApi.cart;
+    const { removeFromCart } = state.cartApi;
+    const [email]=state.userApi.email
 
-    const state = useContext(GlobalState)
+    const handleRemove = (productId) => {
+      removeFromCart(email,productId);
+    }
 
-    const [cart,setCart] = state.userApi.cart
 
-    
-    const removeProduct = (id) => {
-        const updatedCart = cart.map(item => {
-            if (item.product._id === id) {
-                if (item.quantity > 1) {
-                    return { ...item, quantity: item.quantity - 1 };
-                }
-                return null; // Mark for removal
-            }
-            return item;
-        }).filter(item => item !== null); // Remove null items
+    if (cart.length === 0) {
+        return <h2 style={{ textAlign: "center", fontSize: "2rem" }}>Cart is Empty</h2>;
+    }
 
-        setCart(updatedCart);
-    }; 
-
-    if (cart.length === 0)
-        return <h2 style={{ textAlign: "center", fontSize: "5rem" }}>Cart Empty</h2>
     return (
         <div>
             {cart.map(item => (
@@ -41,7 +34,7 @@ function Cart() {
                         <p>Sold: {item.product.sold}</p>
                         <p>Quantity: {item.quantity}</p>
                         <Link to='/cart' className='cart'>Buy Now</Link>
-                        <p><button className='cart' onClick={() => removeProduct(item.product._id)}>Remove</button></p>
+                        <p><button className='cart' onClick={() => handleRemove(item.product._id)}>Remove</button></p>
                     </div>
                 </div>
             ))}

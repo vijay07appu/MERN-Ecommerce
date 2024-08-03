@@ -12,7 +12,8 @@ function Header() {
     const state = useContext(GlobalState)
     const [isLogged, setIsLogged] = state.userApi.isLogged
     const [isAdmin, setIsAdmin] = state.userApi.isAdmin
-    const [cart]=state.userApi.cart
+    const [cart] = state.cartApi.cart || [];
+    
 
 
     const logoutUser = async () => {
@@ -27,7 +28,7 @@ function Header() {
     const adminRouter = () => {
         return (
             <>
-                <li><Link to='/create_product'>Create Product</Link></li>
+                <li><Link to='/create-product'>Create Product</Link></li>
                 <li><Link to='/category'>Categories</Link></li>
             </>
         )
@@ -70,8 +71,8 @@ function Header() {
                 </ul>
                 {
                     isAdmin ? '' : <div className='cart-icon'>
-                        <span>{cart.reduce((acc, item) => acc + item.quantity, 0)}</span>
-                        <Link to='/Cart'><MdOutlineShoppingCart size={30} /></Link>
+                         <span>{(cart || []).reduce((acc, item) => acc + item.quantity, 0)}</span>
+                        <Link to='/cart'><MdOutlineShoppingCart size={30} /></Link>
                     </div>
                 }
 

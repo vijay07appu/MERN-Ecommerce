@@ -1,5 +1,5 @@
 
-import {User} from '../models/userModel.js'
+import User from '../models/userModel.js'
 import jwt from 'jsonwebtoken'
 
 import bcrypt from 'bcrypt'
@@ -107,8 +107,56 @@ return res.status(500).json({msg:err.message})
             return res.status(500).json({msg:err.message})
         }
     },
+    addToCart: async (req, res) => {
+        try {
+            const { email, productId, quantity } = req.body;
+            const user = await User.findOne({email});
+    
+            if (!user) return res.status(404).json({ message: 'User not found' });
+    
+            await user.addToCart(productId, quantity);
+            res.status(200).json({ message: 'Item added to cart' });
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    },
+    
+     removeFromCart : async (req, res) => {
+        try {
+            const { email, productId } = req.body;
+            const user = await User.findOne({email});
+    
+            if (!user) return res.status(404).json({ message: 'User not found' });
+    
+            await user.removeFromCart(productId);
+            res.status(200).json({ message: 'Item removed from cart' });
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    },
+
+     getUserCart : async (req, res) => {
+        try {
+
+            
+            const user = await User.findById(req.user.id).populate('cart.product');
+            
+            if (!user) {
+                return res.status(404).json({ message: 'User not found' });
+            }
+            console.log("backend of cart result")
+            console.log(user.cart)
+    
+            res.json(user.cart);
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    }
     
 }
+
+
+
 
 const createAccessToken = (payload) => {
     return jwt.sign(payload,process.env.ACCESS_TOKEN_SECRET,{expiresIn:'1d'})

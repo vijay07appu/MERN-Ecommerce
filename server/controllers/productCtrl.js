@@ -78,21 +78,29 @@ export const productCtrl={
     createProduct:async(req,res)=>{
         try{
 
+            console.log("Create product is running")
+
             const {product_id,title,price,description,content,category}=req.body
 
             const imageLocalPath=req.files?.images[0]?.path;
 
             if(!imageLocalPath)
                 {
+
+                    console.log("local image path not found in createproduct backend")
                    return res.json({msg:"Image local path is required "})
                 }
                 const image=await uploadOnCloudinary(imageLocalPath)
-                console.log(image)
+                
 
                 if(!image)
                 {
+
+                    console.log("image not not uploaded on cloudinary ")
                      return res.json("image not uploaded on cloudinary")
                 }
+
+                console.log("image url created successfully")
 
             const product=await Product.findOne({product_id})
             if(product) return res.status(400).json({msg:"This product already exists"})
@@ -101,6 +109,10 @@ export const productCtrl={
             await newProduct.save()
 
             res.json(newProduct)
+
+            console.log("create product executed successfully")
+
+
 
         }catch(err){
             return res.status(500).json({msg:err.message})

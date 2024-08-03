@@ -15,6 +15,13 @@ router.get('/logout',userCtrl.logout)
 router.get('/refresh_token',userCtrl.refreshtoken)
 
 router.get('/info',auth,userCtrl.getUser)
+
+router.post('/add-to-cart',userCtrl.addToCart)
+
+router.post('/remove-from-cart',userCtrl.removeFromCart)
+
+router.get('/cart', auth,userCtrl.getUserCart);
+
  
 
 export default router
