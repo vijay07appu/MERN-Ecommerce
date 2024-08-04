@@ -1,39 +1,8 @@
-// import React, { useContext } from 'react'
-// import { GlobalState } from '../../../GlobalState'
-// import ProductList from '../utils/ProductList/ProductList';
-// import  './Product.css'
-// function Product() {
-//     const state=useContext(GlobalState);
-    
-//     const [products]=state.productApi.products
-//     const [isAdmin]=state.userApi.isAdmin
-    
-//     return (
-//         <>
-//         <div className='products'>
-//             {
-//                 products.map(product=>{
-                    
-
-//                    return  <ProductList key={product._id} product={product} isAdmin={isAdmin}/>
-                    
-    
-//                 })
-//             }
-//         </div>
-//         </>
-        
-//     )
-// }
-
-// export default Product
 
 import React, { useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 import { GlobalState } from '../../../GlobalState';
 import ProductList from '../utils/ProductList/ProductList';
-// import CategoryFilter from '../filters/CategoryFilter'; // Import CategoryFilter
-// import FilterComponent from '../filters/FilterComponent';
 import SortComponent from '../filters/SortComponent';
 import PaginationComponent from '../filters/PaginationComponent';
 import './Product.css';
@@ -42,11 +11,31 @@ function Product() {
     const state = useContext(GlobalState);
     const [products, setProducts] = state.productApi.products;
     const [isAdmin] = state.userApi.isAdmin;
-    // const [filters, setFilters] = useState({});
+   
     const [sort, setSort] = useState('');
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const [token] = state.token;
+    const [category, setCategory] = useState('');
+    const [categories, setCategories] = useState([])
+
+
+    useEffect(() => {
+        const fetchCategories = async () => {
+            try {
+                const response = await axios.get('http://localhost:5000/api/categories', {
+                    headers: { Authorization: token }
+                });
+                setCategories(response.data.categories);
+                console.log("category worked fine ")
+            } catch (error) {
+                console.log("Error fetching categories:", error);
+                alert(error.response?.data?.msg || "Something went wrong while fetching categories");
+            }
+        };
+
+        fetchCategories();
+    }, [token]);
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -54,16 +43,23 @@ function Product() {
                 const query = new URLSearchParams({
                     sort,
                     page,
+                    category: category || '',
+                    limit:100
                 }).toString();
 
                 const response = await axios.get(`http://localhost:5000/api/products?${query}`, {
-                    headers: { Authorization: token },
+                    headers: {
+                        Authorization: token || '',
+                        'Cache-Control': 'no-cache',
+                    },
                 });
-                // console.log("response from fetching ")
-                // console.log(response.data)
+                console.log("response from fetching all categories ")
+                console.log(response.data)
 
                 setProducts(response.data.product);
-                setTotalPages(Math.ceil(response.data.result / 9)); // Assuming 9 products per page
+                setTotalPages(Math.ceil(response.data.result / 100)); // Assuming 9 products per page
+
+                console.log("product fetched fine")
             } catch (error) {
                 console.log("Error in fetching products:", error);
                 alert(error.response?.data?.msg || "Something went wrong");
@@ -71,12 +67,21 @@ function Product() {
         };
 
         fetchProducts();
-    }, [sort, page, token, setProducts]);
+    }, [sort,page, category, token]);
 
     return (
         <>
             <div className="filter_sort">
                 <SortComponent setSort={setSort} />
+                <div className="filter_category">
+                    <label htmlFor="category">Category:</label>
+                    <select id="category" onChange={(e) => setCategory(e.target.value)} value={category}>
+                        <option value="">All Categories</option>
+                        {categories.map(cat => (
+                            <option key={cat} value={cat}>{cat}</option>
+                        ))}
+                    </select>
+                </div>
             </div>
             <div className='products'>
                 {products.map(product => (

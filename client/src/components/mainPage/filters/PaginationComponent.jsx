@@ -1,14 +1,15 @@
 import React from 'react';
+import './PaginationComponent.css'
 
 function PaginationComponent({ page, setPage, totalPages }) {
     const handlePageChange = (newPage) => {
-        if (newPage >= 1 && newPage <= totalPages) {
+        if (newPage >= 0 && newPage <= totalPages) {
             setPage(newPage);
         }
     };
 
     return (
-        <div className="pagination_component">
+        <div className="pagination">
             <button onClick={() => handlePageChange(page - 1)} disabled={page === 1}>
                 Previous
             </button>

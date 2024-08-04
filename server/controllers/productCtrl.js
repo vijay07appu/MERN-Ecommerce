@@ -19,7 +19,7 @@ import { uploadOnCloudinary } from "../middleware/cloudinaryConfig.js"
             excludedFields.forEach(el => delete queryObj[el]);
     
             // Handle category filtering
-            if (queryObj.category) {
+            if (queryObj.category && queryObj.category!=='') {
                 this.query = this.query.where('category').equals(queryObj.category);
             }
     
@@ -46,7 +46,7 @@ import { uploadOnCloudinary } from "../middleware/cloudinaryConfig.js"
     }
     pagination(){
         const page = this.queryString.page * 1 || 1;
-    const limit = this.queryString.limit * 1 || 9;
+    const limit = this.queryString.limit * 1 || 100;
     const skip = (page - 1) * limit;
 
     this.query = this.query.skip(skip).limit(limit);
@@ -66,7 +66,8 @@ export const productCtrl={
             .pagination();
            
             const products = await features.query;
-            res.json({status:'success',result: products.length,product:products})
+            const totalProducts = await Product.countDocuments();
+            res.json({status:'success',result: totalProducts,product:products})
              
 
         }catch(err){
@@ -75,6 +76,8 @@ export const productCtrl={
         }
             
     },
+
+
     
 
     createProduct:async(req,res)=>{

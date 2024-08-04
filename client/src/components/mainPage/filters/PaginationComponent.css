@@ -1,0 +1,51 @@
+/* PaginationContainer.css */
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+    gap: 10px; /* Adds space between elements */
+}
+
+.pagination button {
+    background-color: #007bff; /* Primary color */
+    color: #fff; /* Text color */
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.pagination button:disabled {
+    background-color: #6c757d; /* Disabled color */
+    cursor: not-allowed;
+}
+
+.pagination button:hover:not(:disabled) {
+    background-color: #0056b3; /* Darker shade on hover */
+    transform: scale(1.05); /* Slightly enlarge button */
+}
+
+.pagination span {
+    font-size: 16px;
+    color: #333; /* Text color */
+    font-weight: bold;
+}
+
+.pagination .page-number {
+    margin: 0 5px; /* Space between page number and buttons */
+}
+
+@media (max-width: 768px) {
+    .pagination {
+        flex-direction: column;
+    }
+
+    .pagination button {
+        width: 100%;
+        margin-bottom: 10px; /* Space between buttons */
+    }
+}

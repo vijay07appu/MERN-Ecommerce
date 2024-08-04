@@ -1,13 +1,3 @@
-@import url("../utils/ProductList/ProductList.css");
-
-.products{
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(auto-fill,minmax(300px,1fr));
-    justify-items: center;
-    margin: 20px 0;
-}
-
 .sort_component,
 .filter_category {
     display: flex;
