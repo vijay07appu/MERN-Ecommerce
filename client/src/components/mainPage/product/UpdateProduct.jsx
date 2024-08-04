@@ -21,7 +21,7 @@ function UpdateProduct() {
     useEffect(() => {
         const fetchProduct = async () => {
             try {
-                const response = await axios.get(`https://mern-ecommerce-1-fgb6.onrender.com/api/products`, {
+                const response = await axios.get(`https://mern-ecommerce-2-k26v.onrender.com/api/products`, {
                     headers: { Authorization: token },
                 });
                 setProduct(response.data);
@@ -54,7 +54,7 @@ function UpdateProduct() {
             formData.append('category', product.category);
             if (images) formData.append('images', images);
 
-            const response = await axios.put(`https://mern-ecommerce-1-fgb6.onrender.com/api/products/${id}`, formData, {
+            const response = await axios.put(`https://mern-ecommerce-2-k26v.onrender.com/api/products/${id}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     Authorization: token,

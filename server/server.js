@@ -12,7 +12,7 @@ import cors from "cors"
 const app = express();
 dotenv.config()
 app.use(cors({
-    origin: 'https://superb-gingersnap-c4ed30.netlify.app/', // Update with your frontend URL
+    origin: '*', // Update with your frontend URL
     credentials: true // Allow credentials (cookies) to be sent
 }));
 app.use(express.json())             

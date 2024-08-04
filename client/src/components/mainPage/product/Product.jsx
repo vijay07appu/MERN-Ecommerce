@@ -23,7 +23,7 @@ function Product() {
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const response = await axios.get('https://mern-ecommerce-1-fgb6.onrender.com/api/categories', {
+                const response = await axios.get('https://mern-ecommerce-2-k26v.onrender.com/api/categories', {
                     headers: { Authorization: token }
                 });
                 setCategories(response.data.categories);
@@ -47,7 +47,7 @@ function Product() {
                     limit:100
                 }).toString();
 
-                const response = await axios.get(`https://mern-ecommerce-1-fgb6.onrender.com/api/products?${query}`, {
+                const response = await axios.get(`https://mern-ecommerce-2-k26v.onrender.com/api/products?${query}`, {
                     headers: {
                         Authorization: token || '',
                         'Cache-Control': 'no-cache',
