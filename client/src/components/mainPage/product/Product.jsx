@@ -26,6 +26,8 @@ function Product() {
                 const response = await axios.get('https://mern-ecommerce-2-k26v.onrender.com/api/categories', {
                     headers: { Authorization: token }
                 });
+                console.log("response of categories ")
+                console.log(response)
                 setCategories(response.data.categories);
                 console.log("category worked fine ")
             } catch (error) {
