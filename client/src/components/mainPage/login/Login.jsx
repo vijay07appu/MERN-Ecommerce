@@ -21,6 +21,9 @@ function Login() {
         e.preventDefault();
         try {
             const res = await axios.post('http://localhost:5000/api/user/login', { ...user });
+
+            console.log("res for login is ")
+            console.log(res)
             localStorage.setItem('firstLogin', true)
             window.location.href = "/"
             console.log('Login successful');

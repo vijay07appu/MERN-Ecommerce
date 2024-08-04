@@ -6,6 +6,8 @@ export const categoryCtrl={
       try{
 
             const categories=await Category.find()
+            console.log("categories are ")
+            console.log(categories)
             res.json({categories})
              
 

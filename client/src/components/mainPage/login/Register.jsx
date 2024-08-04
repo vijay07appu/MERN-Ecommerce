@@ -24,7 +24,7 @@ function Register() {
             await axios.post('http://localhost:5000/api/user/register', { ...user });
             localStorage.setItem('firstRegister', true)
             window.location.href = "/"
-            // Handle successful login
+            // Handle successful register
             console.log('Register successful');
         } catch (err) {
             // Handle error
@@ -50,6 +50,7 @@ function Register() {
                                 <input type="password" name="password" required placeholder="Enter Password :" value={user.password} onChange={onChangeInput}/>
                             </div>
                             <div className='row'>
+                            <button className="btn" type='submit'>Register</button>
                                 <p className='login-link'>Already have an Account? <Link to='/login'>Login</Link></p>
 
                             </div>

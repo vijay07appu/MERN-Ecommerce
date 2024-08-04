@@ -1,6 +1,7 @@
 
 import User from '../models/userModel.js'
 import jwt from 'jsonwebtoken'
+// import Product from '../models/productModel.js'
 
 import bcrypt from 'bcrypt'
 
@@ -109,25 +110,38 @@ return res.status(500).json({msg:err.message})
     },
     addToCart: async (req, res) => {
         try {
-            const { email, productId, quantity } = req.body;
-            const user = await User.findOne({email});
-    
+            if (!req.user) return res.status(401).json({ message: 'Unauthorized' }); // Check if user is authenticated
+
+            const { productId, quantity } = req.body;
+            const user = await User.findById(req.user.id);
+
             if (!user) return res.status(404).json({ message: 'User not found' });
-    
+            
+            // Validate product
+        //    const product = await Product.findById(productId);
+        //    if (!product) return res.status(404).json({ message: 'Product not found' });
+
+
             await user.addToCart(productId, quantity);
             res.status(200).json({ message: 'Item added to cart' });
         } catch (error) {
             res.status(500).json({ message: error.message });
         }
     },
-    
-     removeFromCart : async (req, res) => {
+
+    removeFromCart: async (req, res) => {
         try {
-            const { email, productId } = req.body;
-            const user = await User.findOne({email});
-    
+            if (!req.user) return res.status(401).json({ message: 'Unauthorized' }); // Check if user is authenticated
+
+            const { productId } = req.body;
+            const user = await User.findById(req.user.id);
+
             if (!user) return res.status(404).json({ message: 'User not found' });
-    
+
+             // Validate product
+        // const product = await Product.findById(productId);
+        // if (!product) return res.status(404).json({ message: 'Product not found' });
+
             await user.removeFromCart(productId);
             res.status(200).json({ message: 'Item removed from cart' });
         } catch (error) {
@@ -135,25 +149,29 @@ return res.status(500).json({msg:err.message})
         }
     },
 
-     getUserCart : async (req, res) => {
+    getUserCart: async (req, res) => {
         try {
+            if (!req.user) {
+                return res.json([]); // Return empty cart if user is not logged in
+            }
 
-            
             const user = await User.findById(req.user.id).populate('cart.product');
-            
             if (!user) {
                 return res.status(404).json({ message: 'User not found' });
             }
-            console.log("backend of cart result")
-            console.log(user.cart)
-    
-            res.json(user.cart);
+
+
+        // Filter out any items where the product is null
+        const validCartItems = user.cart.filter(item => item.product !== null);
+
+            res.json(validCartItems);
         } catch (error) {
             res.status(500).json({ message: error.message });
         }
     }
-    
 }
+    
+
 
 
 

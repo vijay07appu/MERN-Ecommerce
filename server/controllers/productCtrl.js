@@ -11,24 +11,25 @@ import { uploadOnCloudinary } from "../middleware/cloudinaryConfig.js"
             this.queryString = queryString;
         }
 
-    filtering(){
-
-        // queryString is converted to object to remove the page, sort and limit
-        const queryObj={...this.queryString};
-        console.log("queryobj is "+queryObj)
-
-       const excluededFields = ['page', 'sort', 'limit'];
-       excluededFields.forEach(el => delete(queryObj[el]));
+        filtering() {
+            const queryObj = { ...this.queryString };
+            console.log("queryObj is", queryObj);
     
-       let queryStr = JSON.stringify(queryObj);
-       
-       // to add "$" to prefix part ....
-       queryStr = queryStr.replace(/\b(gte|gt|lt|lte|regex)\b/g, match => '$' + match);
-      
-       this.query.find(JSON.parse(queryStr))
-       return this
-
-    }
+            const excludedFields = ['page', 'sort', 'limit'];
+            excludedFields.forEach(el => delete queryObj[el]);
+    
+            // Handle category filtering
+            if (queryObj.category) {
+                this.query = this.query.where('category').equals(queryObj.category);
+            }
+    
+            // Convert remaining queryObj to JSON and prefix operators
+            let queryStr = JSON.stringify(queryObj);
+            queryStr = queryStr.replace(/\b(gte|gt|lt|lte|regex)\b/g, match => '$' + match);
+    
+            this.query.find(JSON.parse(queryStr));
+            return this;
+        }
     sorting(){
         if(this.queryString.sort){
             const sortBy=this.queryString.sort.split(',').join('')
@@ -69,6 +70,7 @@ export const productCtrl={
              
 
         }catch(err){
+            console.error("Error in getProduct:", err);
             return res.status(500).json({msg:err.message})
         }
             
@@ -105,7 +107,7 @@ export const productCtrl={
             const product=await Product.findOne({product_id})
             if(product) return res.status(400).json({msg:"This product already exists"})
 
-            const newProduct =new Product({product_id,title:title.toLowerCase(),price,description,content,images:image.url,category})
+            const newProduct =new Product({product_id,title:title.toLowerCase(),price:Number(price),description,content,images:image.url,category})
             await newProduct.save()
 
             res.json(newProduct)
@@ -153,7 +155,7 @@ export const productCtrl={
                      return res.json("image not uploaded on cloudinary")
                 }
 
-            await Product.findByIdAndUpdate({_id:req.params.id},{product_id,title,price,description,content,images:image.url,category})
+            await Product.findByIdAndUpdate({_id:req.params.id},{product_id,title,price:Number(price),description,content,images:image.url,category})
             res.json("Product  updated successfully")
            
 
