@@ -16,7 +16,7 @@ export const userCtrl = {
             if(password.length < 6)
             return res.status(400).json({msg:"Password is at least 6 character"})
 
-            //Password Encryption
+            // Password Encryption
             const passwordHash = await bcrypt.hash(password,10)
 
             const newUser = new User({

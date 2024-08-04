@@ -20,7 +20,7 @@ function Login() {
     const loginSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post('http://localhost:5000/api/user/login', { ...user });
+            const res = await axios.post('https://mern-ecommerce-1-fgb6.onrender.com/api/user/login', { ...user });
 
             console.log("res for login is ")
             console.log(res)

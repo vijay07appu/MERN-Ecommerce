@@ -12,7 +12,7 @@ function Header() {
     const [cart] = state.cartApi.cart || [];
 
     const logoutUser = async () => {
-        await axios.get('http://localhost:5000/api/user/logout');
+        await axios.get('https://mern-ecommerce-1-fgb6.onrender.com/api/user/logout');
         localStorage.clear();
         setIsAdmin(false);
         setIsLogged(false);
