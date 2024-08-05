@@ -14,6 +14,9 @@ export const DataProvider=({children})=>{
     const refreshToken = async () => {
     
           const res = await axios.get('https://mern-ecommerce-2-k26v.onrender.com/api/user/refresh_token',{
+            headers:{
+                'Content-Type': 'application/json',
+            },
             withCredentials: true,
           })
           console.log("response form refresh token ")

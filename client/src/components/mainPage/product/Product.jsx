@@ -24,7 +24,11 @@ function Product() {
         const fetchCategories = async () => {
             try {
                 const response = await axios.get('https://mern-ecommerce-2-k26v.onrender.com/api/categories', {
-                    headers: { Authorization: token }
+                    headers: {
+                         Authorization: token, 
+                         'Cache-Control': 'no-cache',
+                        'Content-Type': 'application/json',
+                        },withCredentials: true,
                 });
                 console.log("response of categories ")
                 console.log(response)
@@ -53,7 +57,9 @@ function Product() {
                     headers: {
                         Authorization: token || '',
                         'Cache-Control': 'no-cache',
+                        'Content-Type': 'application/json',
                     },
+                    withCredentials: true,
                 });
                 console.log("response from fetching all categories ")
                 console.log(response.data)

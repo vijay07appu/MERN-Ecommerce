@@ -18,9 +18,16 @@ function Login() {
     }
 
     const loginSubmit = async (e) => {
+        console.log("login page started executing")
         e.preventDefault();
         try {
-            const res = await axios.post('https://mern-ecommerce-2-k26v.onrender.com/api/user/login', { ...user });
+            const res = await axios.post('http://localhost:5000/api/user/login', { ...user },{
+                headers: {
+
+                    'Content-Type': 'application/json',
+                },
+                withCredentials: true,
+            });
 
             console.log("res for login is ")
             console.log(res)
