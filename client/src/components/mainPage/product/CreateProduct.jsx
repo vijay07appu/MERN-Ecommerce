@@ -42,7 +42,7 @@ function CreateProduct() {
                 console.log(`${key}: ${value}`);
             }
 
-            const response = await axios.post('http://localhost:5000/api/products', formData, {
+            const response = await axios.post(`${process.env.REACT_URL}/api/products`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     Authorization: token,

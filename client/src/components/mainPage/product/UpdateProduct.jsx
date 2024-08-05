@@ -54,7 +54,7 @@ function UpdateProduct() {
             formData.append('category', product.category);
             if (images) formData.append('images', images);
 
-            const response = await axios.put(`http://localhost:5000/api/products/${id}`, formData, {
+            const response = await axios.put(`${process.env.REACT_URL}/api/products/${id}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     Authorization: token,
