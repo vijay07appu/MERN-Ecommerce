@@ -35,7 +35,8 @@ export const userCtrl = {
 
             res.cookie('refreshtoken', refreshtoken,{
                 httpOnly:true,
-                path:'/api/user/refresh_token'
+                path:'https://mern-ecommerce-2-k26v.onrender.com/api/user/refresh_token',
+                expries:new Date(Date.now()+25892000000)
             })
 
             res.json({accesstoken})
@@ -84,7 +85,7 @@ return res.status(500).json({msg:err.message})
 
             res.cookie('refreshtoken',refreshtoken,{
                 httpOnly:true,
-                path:'/api/user/refresh_token'
+                path:'https://mern-ecommerce-2-k26v.onrender.com/api/user/refresh_token'
             })
 
             res.json({accesstoken})
