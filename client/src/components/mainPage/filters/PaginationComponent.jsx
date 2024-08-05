@@ -1,5 +1,7 @@
 import React from 'react';
 import './PaginationComponent.css'
+import dotenv from 'dotenv'
+
 
 function PaginationComponent({ page, setPage, totalPages }) {
     const handlePageChange = (newPage) => {

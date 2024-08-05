@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom'
 import { GlobalState } from '../../../../GlobalState';
 import { Link } from 'react-router-dom';
 import './DetailProduct.css'
+import dotenv from 'dotenv'
+
 
 function DetailProduct() {
 

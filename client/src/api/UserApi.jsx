@@ -1,5 +1,7 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import dotenv from 'dotenv'
+
 
 function UserApi(token) {
 
@@ -11,7 +13,7 @@ function UserApi(token) {
         if(token){
             const getUser=async()=>{
                 try{
-                    const res=await axios.get(`${process.env.REACT_URL}/api/user/info`,{
+                    const res=await axios.get(`http://localhost:5000/api/user/info`,{
                         headers:{Authorization:token}
                     });
 

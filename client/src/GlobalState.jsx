@@ -3,6 +3,8 @@ import ProductApi from "./api/ProductApi";
 import UserApi from "./api/UserApi";
 import CartApi from "./api/CartApi";
 import axios from "axios";
+import dotenv from 'dotenv'
+
 axios.defaults.withCredentials = true;
 
 export const GlobalState=createContext();
@@ -13,7 +15,7 @@ export const DataProvider=({children})=>{
 
     const refreshToken = async () => {
     
-          const res = await axios.get(`${process.env.REACT_URL}/api/user/refresh_token`,{
+          const res = await axios.get(`http://localhost:5000/api/user/refresh_token`,{
             headers:{
                 'Content-Type': 'application/json',
             },

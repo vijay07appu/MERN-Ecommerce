@@ -1,6 +1,8 @@
 
 import React from 'react';
 import BtnRender from './BtnRender';
+import dotenv from 'dotenv'
+
 
 function ProductList({ product, isAdmin }) {
     return (

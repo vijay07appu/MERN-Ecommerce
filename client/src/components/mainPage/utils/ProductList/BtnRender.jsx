@@ -4,6 +4,8 @@ import React, { useContext } from 'react';
 import { GlobalState } from '../../../../GlobalState';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import dotenv from 'dotenv'
+
 
 function BtnRender({ product, isAdmin }) {
     const state = useContext(GlobalState);
@@ -21,7 +23,7 @@ function BtnRender({ product, isAdmin }) {
 
     const handleDelete = async (id) => {
         try {
-            const response = await axios.delete(`${process.env.REACT_URL}/api/products/${id}`);
+            const response = await axios.delete(`http://localhost:5000/api/products/${id}`);
             alert(response.data);
         } catch (error) {
             console.error('Error deleting product:', error);

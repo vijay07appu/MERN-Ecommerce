@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import './Login.css'
+import dotenv from 'dotenv'
+
 
 function Login() {
     const [user, setUser] = useState({
@@ -21,7 +23,7 @@ function Login() {
         console.log("login page started executing")
         e.preventDefault();
         try {
-            const res = await axios.post(`${process.env.REACT_URL}/api/user/login`, { ...user },{
+            const res = await axios.post(`http://localhost:5000/api/user/login`, { ...user },{
                 headers: {
 
                     'Content-Type': 'application/json',

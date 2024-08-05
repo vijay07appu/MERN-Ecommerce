@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import './Register.css'
+import dotenv from 'dotenv'
+
 
 function Register() {
     const [user, setUser] = useState({
@@ -21,7 +23,7 @@ function Register() {
     const registerSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.post(`${process.env.REACT_URL}/api/user/register`, { ...user },{
+            await axios.post(`http://localhost:5000/api/user/register`, { ...user },{
                 headers: {
                     
                     'Content-Type': 'application/json',

@@ -1,5 +1,7 @@
 import React from 'react';
 import './SortComponent.css'
+import dotenv from 'dotenv'
+
 function SortComponent({ setSort }) {
     const handleSortChange = (e) => {
         setSort(e.target.value);

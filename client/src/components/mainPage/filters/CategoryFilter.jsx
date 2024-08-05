@@ -2,6 +2,8 @@ import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { GlobalState } from '../../../GlobalState';
 import './CategoryFilter.css';
+import dotenv from 'dotenv'
+
 
 function CategoryFilter({ setFilters }) {
     const [categories, setCategories] = useState([]);
@@ -9,7 +11,7 @@ function CategoryFilter({ setFilters }) {
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const response = await axios.get(`${process.env.REACT_URL}/api/category`);
+                const response = await axios.get(`http://localhost:5000/api/category`);
                 console.log("response.data.categories are ")
                 console.log(response.data.categories)
                 setCategories(response.data.categories);

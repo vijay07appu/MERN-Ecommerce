@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import dotenv from 'dotenv'
+
 
 function FilterComponent({ setFilters }) {
     const [price, setPrice] = useState({ min: '', max: '' });

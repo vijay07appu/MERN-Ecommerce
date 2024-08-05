@@ -1,6 +1,8 @@
 import React, { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 
+
+
 function CartApi(token) {
     const [isLogged, setIsLogged] = useState(false);
     const [isAdmin, setIsAdmin] = useState(false);
@@ -10,7 +12,7 @@ function CartApi(token) {
         if (token) {
             const getCart = async () => {
                 try {
-                    const res = await axios.get(`${process.env.REACT_URL}/api/user/cart`, {
+                    const res = await axios.get(`http://localhost:5000/api/user/cart`, {
                         headers: { Authorization: token }
                     });
 
@@ -39,8 +41,8 @@ function CartApi(token) {
             // const productResponse = await axios.get(`http://localhost:5000/api/product/${productId}`);
             // if (!productResponse.data) return; // Ensure product exists
 
-            await axios.post(`${process.env.REACT_URL}/api/user/add-to-cart`, { email, productId, quantity }, { headers: { Authorization: token } });
-            const response = await axios.get(`${process.env.REACT_URL}/api/user/cart`, { headers: { Authorization: token } });
+            await axios.post(`http://localhost:5000/api/user/add-to-cart`, { email, productId, quantity }, { headers: { Authorization: token } });
+            const response = await axios.get(`http://localhost:5000/api/user/cart`, { headers: { Authorization: token } });
             setCart(response.data || []);
         } catch (error) {
             console.error('Failed to add item to cart', error);
@@ -51,8 +53,8 @@ function CartApi(token) {
         if (!isLogged) return; // Prevent removing from cart if not logged in
 
         try {
-            await axios.post(`${process.env.REACT_URL}/api/user/remove-from-cart`, { email, productId, quantity }, { headers: { Authorization: token } });
-            const response = await axios.get(`${process.env.REACT_URL}/api/user/cart`, { headers: { Authorization: token } });
+            await axios.post(`http://localhost:5000/api/user/remove-from-cart`, { email, productId, quantity }, { headers: { Authorization: token } });
+            const response = await axios.get(`http://localhost:5000/api/user/cart`, { headers: { Authorization: token } });
             setCart(response.data || []);
         } catch (error) {
             console.error('Failed to remove item from cart', error);
