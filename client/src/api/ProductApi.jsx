@@ -6,7 +6,7 @@ function ProductApi() {
     const [products,setProducts]=useState([])
 
     const getProducts=async()=>{
-        const res=await axios.get('https://mern-ecommerce-2-k26v.onrender.com/api/products');
+        const res=await axios.get('http://localhost:5000/api/products');
         setProducts(res.data.product);
        
     }

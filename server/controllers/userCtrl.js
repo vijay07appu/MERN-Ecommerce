@@ -34,8 +34,11 @@ export const userCtrl = {
            
 
             res.cookie('refreshtoken', refreshtoken,{
+                httpOnly:true,
+                secure:true,
+                sameSite:'None',
                
-                path:'https://mern-ecommerce-2-k26v.onrender.com/api/user/refresh_token',
+                path:'/api/user/refresh_token',
                 expries:new Date(Date.now()+25892000000)
             })
 
@@ -78,14 +81,20 @@ return res.status(500).json({msg:err.message})
 
             const isMatch = await bcrypt.compare(password,user.password)
             if(!isMatch) return res.status(400).json({msg:"Incorrect Password"})
+                console.log("user is ")
+            console.log(user)
 
             const accesstoken = createAccessToken({id:user._id})
             const refreshtoken = createRefreshToken({id:user._id})
             
 
             res.cookie('refreshtoken',refreshtoken,{
+                httpOnly:true,
+                secure:true,
+                sameSite:'None',
                
-                path:'https://mern-ecommerce-2-k26v.onrender.com/api/user/refresh_token'
+                path:'/api/user/refresh_token',
+                expries:new Date(Date.now()+25892000000)
             })
 
             res.json({accesstoken})

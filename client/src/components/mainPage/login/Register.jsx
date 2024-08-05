@@ -21,7 +21,7 @@ function Register() {
     const registerSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.post('https://mern-ecommerce-2-k26v.onrender.com/api/user/register', { ...user },{
+            await axios.post('http://localhost:5000/api/user/register', { ...user },{
                 headers: {
                     
                     'Content-Type': 'application/json',
