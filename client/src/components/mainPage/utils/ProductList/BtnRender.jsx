@@ -14,6 +14,7 @@ function BtnRender({ product, isAdmin }) {
         if (email) {
             addToCart(email, product._id, 1);
         } else {
+            alert("Please Login")
             console.error('User email is not available');
         }
     };

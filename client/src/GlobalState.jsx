@@ -13,10 +13,14 @@ export const DataProvider=({children})=>{
 
     const refreshToken = async () => {
     
-          const res = await axios.get('https://mern-ecommerce-2-k26v.onrender.com/api/user/refresh_token');
+          const res = await axios.get('https://mern-ecommerce-2-k26v.onrender.com/api/user/refresh_token',{
+            withCredentials: true,
+          })
+          console.log("response form refresh token ")
+          console.log(res.data)
           setToken(res.data.accesstoken);
           
-      };
+      }
 
     useEffect(()=>{
         const firstLogin=localStorage.getItem('firstLogin')
