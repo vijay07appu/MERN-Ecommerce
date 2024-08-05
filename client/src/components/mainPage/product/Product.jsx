@@ -30,10 +30,10 @@ function Product() {
                         'Content-Type': 'application/json',
                         },withCredentials: true,
                 });
-                console.log("response of categories ")
-                console.log(response)
+                // console.log("response of categories ")
+                // console.log(response)
                 setCategories(response.data.categories);
-                console.log("category worked fine ")
+                // console.log("category worked fine ")
             } catch (error) {
                 console.log("Error fetching categories:", error);
                 alert(error.response?.data?.msg || "Something went wrong while fetching categories");
@@ -61,13 +61,13 @@ function Product() {
                     },
                     withCredentials: true,
                 });
-                console.log("response from fetching all categories ")
-                console.log(response.data)
+                // console.log("response from fetching all categories ")
+                // console.log(response.data)
 
                 setProducts(response.data.product);
                 setTotalPages(Math.ceil(response.data.result / 100)); // Assuming 9 products per page
 
-                console.log("product fetched fine")
+                // console.log("product fetched fine")
             } catch (error) {
                 console.log("Error in fetching products:", error);
                 alert(error.response?.data?.msg || "Something went wrong");
