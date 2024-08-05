@@ -31,7 +31,7 @@ export const userCtrl = {
             const refreshtoken = createRefreshToken({id:newUser._id})
             console.log("refreshtoken is ")
             console.log(refreshtoken)
-            localStorage.setItem('refreshToken', refreshtoken);
+           
 
             res.cookie('refreshtoken', refreshtoken,{
                 httpOnly:true,
@@ -53,10 +53,9 @@ export const userCtrl = {
 
             if(!rf_token) return res.status(400).json({msg:"Please Login or Registers , i am from cookie not found"});
 
-            const r_token=localStorage.getItem('refreshToken')
-            if(!r_token)  return res.status(400).json({msg:'refreshToken in local storage not found'})
+            
     
-            jwt.verify(r_token,process.env.REFRESH_TOKEN_SECRET,(err,user) => {
+            jwt.verify(rf_token,process.env.REFRESH_TOKEN_SECRET,(err,user) => {
                 if(err) return res.status(400).json({msg:"Please Login or Register , i am checking"})
                 const accesstoken = createAccessToken({id:user.id})
             res.json({accesstoken})
@@ -81,7 +80,7 @@ return res.status(500).json({msg:err.message})
 
             const accesstoken = createAccessToken({id:user._id})
             const refreshtoken = createRefreshToken({id:user._id})
-            localStorage.setItem('refreshToken', response.data.refreshToken);
+            
 
             res.cookie('refreshtoken',refreshtoken,{
                 httpOnly:true,
