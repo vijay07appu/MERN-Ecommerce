@@ -11,7 +11,7 @@ function CategoryFilter({ setFilters }) {
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/api/category`);
+                const response = await axios.get(`https://mern-backend-0zrg.onrender.com/api/category`);
                 console.log("response.data.categories are ")
                 console.log(response.data.categories)
                 setCategories(response.data.categories);
