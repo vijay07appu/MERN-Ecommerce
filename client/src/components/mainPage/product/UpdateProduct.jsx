@@ -56,7 +56,7 @@ function UpdateProduct() {
             formData.append('category', product.category);
             if (images) formData.append('images', images);
 
-            const response = await axios.put(`http://localhost:5000/api/products/${id}`, formData, {
+            const response = await axios.put(`https://mern-backend-0zrg.onrender.com/api/products/${id}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     Authorization: token,

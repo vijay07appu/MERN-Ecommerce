@@ -12,7 +12,7 @@ function CartApi(token) {
         if (token) {
             const getCart = async () => {
                 try {
-                    const res = await axios.get(`http://localhost:5000/api/user/cart`, {
+                    const res = await axios.get(`https://mern-backend-0zrg.onrender.com/api/user/cart`, {
                         headers: { Authorization: token }
                     });
 
@@ -41,8 +41,8 @@ function CartApi(token) {
             // const productResponse = await axios.get(`http://localhost:5000/api/product/${productId}`);
             // if (!productResponse.data) return; // Ensure product exists
 
-            await axios.post(`http://localhost:5000/api/user/add-to-cart`, { email, productId, quantity }, { headers: { Authorization: token } });
-            const response = await axios.get(`http://localhost:5000/api/user/cart`, { headers: { Authorization: token } });
+            await axios.post(`https://mern-backend-0zrg.onrender.com/api/user/add-to-cart`, { email, productId, quantity }, { headers: { Authorization: token } });
+            const response = await axios.get(`https://mern-backend-0zrg.onrender.com/api/user/cart`, { headers: { Authorization: token } });
             setCart(response.data || []);
         } catch (error) {
             console.error('Failed to add item to cart', error);
@@ -53,8 +53,8 @@ function CartApi(token) {
         if (!isLogged) return; // Prevent removing from cart if not logged in
 
         try {
-            await axios.post(`http://localhost:5000/api/user/remove-from-cart`, { email, productId, quantity }, { headers: { Authorization: token } });
-            const response = await axios.get(`http://localhost:5000/api/user/cart`, { headers: { Authorization: token } });
+            await axios.post(`https://mern-backend-0zrg.onrender.com/api/user/remove-from-cart`, { email, productId, quantity }, { headers: { Authorization: token } });
+            const response = await axios.get(`https://mern-backend-0zrg.onrender.com/api/user/cart`, { headers: { Authorization: token } });
             setCart(response.data || []);
         } catch (error) {
             console.error('Failed to remove item from cart', error);

@@ -15,7 +15,7 @@ export const DataProvider=({children})=>{
 
     const refreshToken = async () => {
     
-          const res = await axios.get(`http://localhost:5000/api/user/refresh_token`,{
+          const res = await axios.get(`https://mern-backend-0zrg.onrender.com/api/user/refresh_token`,{
             headers:{
                 'Content-Type': 'application/json',
             },

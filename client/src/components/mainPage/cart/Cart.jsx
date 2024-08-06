@@ -16,7 +16,7 @@ function Cart() {
     const handlePayment = async () => {
         try {
             // Make a request to your server to create an order
-            const { data } = await axios.post('http://localhost:5000/api/payment/create-order', {
+            const { data } = await axios.post('https://mern-backend-0zrg.onrender.com/api/payment/create-order', {
                 amount: calculateTotalAmount(), // Replace with actual total amount calculation
             });
 
