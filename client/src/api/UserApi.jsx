@@ -13,7 +13,7 @@ function UserApi(token) {
         if(token){
             const getUser=async()=>{
                 try{
-                    const res=await axios.get(`https://mern-backend-0zrg.onrender.com/api/user/info`,{
+                    const res=await axios.get(`http://localhost:5000/api/user/info`,{
                         headers:{Authorization:token}
                     });
 

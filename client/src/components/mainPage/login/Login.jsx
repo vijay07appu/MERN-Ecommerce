@@ -23,7 +23,7 @@ function Login() {
         console.log("login page started executing")
         e.preventDefault();
         try {
-            const res = await axios.post(`https://mern-backend-0zrg.onrender.com/api/user/login`, { ...user },{
+            const res = await axios.post(`http://localhost:5000/api/user/login`, { ...user },{
                 headers: {
 
                     'Content-Type': 'application/json',

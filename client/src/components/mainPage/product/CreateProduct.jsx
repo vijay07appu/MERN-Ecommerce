@@ -44,7 +44,7 @@ function CreateProduct() {
                 console.log(`${key}: ${value}`);
             }
 
-            const response = await axios.post(`https://mern-backend-0zrg.onrender.com/api/products`, formData, {
+            const response = await axios.post(`http://localhost:5000/api/products`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     Authorization: token,

@@ -31,11 +31,7 @@ function Cart() {
                     // Handle successful payment here
                     console.log(response);
                 },
-                prefill: {
-                    name: 'Customer Name',
-                    email: 'customer@example.com',
-                    contact: '9999999999'
-                },
+                
                 notes: {
                     address: 'Test Address'
                 },
@@ -81,7 +77,7 @@ function Cart() {
                                 <h2>{product.title || 'No Title'}</h2>
                                 <h6>{product.product_id || 'No ID'}</h6>
                             </div>
-                            <span>${product.price || '0.00'}</span>
+                            <span>₹{product.price || '0.00'}</span>
                             <p>{product.description || 'No Description'}</p>
                             <p>{product.content || 'No Content'}</p>
                             <p>Sold: {product.sold || '0'}</p>

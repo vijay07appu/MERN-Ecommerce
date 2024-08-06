@@ -23,7 +23,7 @@ function BtnRender({ product, isAdmin }) {
 
     const handleDelete = async (id) => {
         try {
-            const response = await axios.delete(`https://mern-backend-0zrg.onrender.com/api/products/${id}`);
+            const response = await axios.delete(`http://localhost:5000/api/products/${id}`);
             alert(response.data);
         } catch (error) {
             console.error('Error deleting product:', error);
