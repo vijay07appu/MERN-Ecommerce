@@ -7,6 +7,7 @@ import userRouter from './routes/userRouter.js'
 import categoryRoute from './routes/categoryRouter.js'
 import productRouter from './routes/productRouter.js'
 import catRouter from './routes/catRouter.js'
+import razorRouter from './routes/razorRouter.js'
 import cors from "cors"
 
 const app = express();
@@ -34,6 +35,7 @@ app.use('/api/user',userRouter)
 app.use('/api',categoryRoute)
 app.use('/api',productRouter)
 app.use('/api',catRouter)
+app.use('/api',razorRouter)
 
 
 

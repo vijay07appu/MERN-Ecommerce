@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { GlobalState } from '../../../GlobalState';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 function Cart() {
     const state = useContext(GlobalState);
@@ -12,7 +13,48 @@ function Cart() {
         removeFromCart(email, productId);
     };
 
-    console.log("cart length is "+cart.length)
+    const handlePayment = async () => {
+        try {
+            // Make a request to your server to create an order
+            const { data } = await axios.post('http://localhost:5000/api/payment/create-order', {
+                amount: calculateTotalAmount(), // Replace with actual total amount calculation
+            });
+
+            const options = {
+                key: 'rzp_test_gFmZy0XkxZ46RI', // Replace with your Razorpay key
+                amount: data.amount, // Amount in paise
+                currency: 'INR',
+                name: 'Shopii',
+                description: 'Test Transaction',
+                order_id: data.orderId,
+                handler: function (response) {
+                    // Handle successful payment here
+                    console.log(response);
+                },
+                prefill: {
+                    name: 'Customer Name',
+                    email: 'customer@example.com',
+                    contact: '9999999999'
+                },
+                notes: {
+                    address: 'Test Address'
+                },
+                theme: {
+                    color: '#F37254'
+                }
+            };
+
+            const paymentObject = new window.Razorpay(options);
+            paymentObject.open();
+        } catch (error) {
+            console.error("Error while initiating payment:", error);
+        }
+    };
+
+    const calculateTotalAmount = () => {
+        // Replace with your actual calculation logic
+        return cart.reduce((total, item) => total + (item.product.price * item.quantity), 0) * 100; // Convert to paise
+    };
 
     if (cart.length === 0) {
         return <h2 style={{ textAlign: "center", fontSize: "2rem" }}>Cart is Empty</h2>;
@@ -23,7 +65,6 @@ function Cart() {
             {cart.map(item => {
                 const product = item.product;
 
-                // Check if product exists and has images property
                 if (!product) {
                     return (
                         <div key={item._id} className='detail'>
@@ -31,8 +72,6 @@ function Cart() {
                         </div>
                     );
                 }
-
-                 // Ensure images is always an array
 
                 return (
                     <div className='detail' key={item._id}>
@@ -47,7 +86,7 @@ function Cart() {
                             <p>{product.content || 'No Content'}</p>
                             <p>Sold: {product.sold || '0'}</p>
                             <p>Quantity: {item.quantity}</p>
-                            <Link to='/cart' className='cart'>Buy Now</Link>
+                            <button className='cart' onClick={handlePayment}>Buy Now</button>
                             <p>
                                 <button className='cart' onClick={() => handleRemove(product._id)}>Remove</button>
                             </p>
